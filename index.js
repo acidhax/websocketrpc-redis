@@ -29,6 +29,7 @@ wormholeredis.prototype.joinRoom = function(room, cb) {
 wormholeredis.prototype.leaveRoom = function (room) {
 	// Unsubscribe from room in redis.
 	this.rooms.splice(this.rooms.indexOf(room), 1);
+	room.leaveRoom();
 };
 wormholeredis.prototype.onRoomMessage = function(room, message) {
 	// Parse room message.

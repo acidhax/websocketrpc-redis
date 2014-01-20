@@ -16,10 +16,11 @@ wormholeredis.prototype.joinRoom = function(room, cb) {
 	// Subscribe to room in redis.
 	var subRoom = new wormholeredisRoom(room);
 	this.rooms.push(subRoom);
-	cb && cb(subRoom);
+	cb && cb(null, subRoom);
 };
-wormholeredis.prototype.leaveRoom = function (rooom) {
+wormholeredis.prototype.leaveRoom = function (room) {
 	// Unsubscribe from room in redis.
+	this.rooms.splice(this.rooms.indexOf(room), 1);
 };
 wormholeredis.prototype.onRoomMessage = function(room) {
 	// Parse room message.

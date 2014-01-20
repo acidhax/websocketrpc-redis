@@ -38,8 +38,13 @@ wormholeredis.prototype.leaveRoom = function (room) {
 wormholeredis.prototype.onRoomMessage = function(room, message) {
 	// Parse room message.
 	if (message) {
-		var msgObj = JSON.parse(message);
-		if (msgObj.signature && msgObj.signature.__hash__) {
+		var msgObj;
+		try {
+			msgObj = JSON.parse(message);
+		} catch (ex) {
+
+		}
+		if (msgObj && msgObj.signature && msgObj.signature.__hash__) {
 			// Contains an RPC signature. Let's not enforce equal RPC functions. That would be silly.
 		} else {
 			this.emit("message", room, msgObj);

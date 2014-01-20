@@ -37,7 +37,7 @@ wormholeredis.prototype.onRoomMessage = function(room, message) {
 		if (sigTest.signature && sigTest.signature.__hash__) {
 			// Contains an RPC signature. Let's not enforce equal RPC functions. That would be silly.
 		} else {
-			this.emit(message);
+			this.emit("message", room, message);
 		}
 	}
 };

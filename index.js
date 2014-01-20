@@ -52,6 +52,7 @@ wormholeredisRoom.prototype.onRoomMessage = function (message) {
 wormholeredisRoom.prototype.leaveRoom = function () {
 	// Handle leaving room. Unsubscribe? Announce?
 	this.redisSub.removeListener("wormholeRoom:"+name, this.onRoomMessage);
+	this.removeAllListeners();
 };
 wormholeredisRoom.prototype.__proto__ = events.EventEmitter.prototype;
 module.exports = wormholeredis;

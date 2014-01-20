@@ -28,6 +28,7 @@ wormholeredis.prototype.joinRoom = function(room, cb) {
 	this.socket.on("disconnect", function () {
 		self.leaveRoom(subRoom);
 	});
+	return subRoom;
 };
 wormholeredis.prototype.leaveRoom = function (room) {
 	// Unsubscribe from room in redis.

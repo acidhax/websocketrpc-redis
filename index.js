@@ -1,4 +1,5 @@
 var fs = require('fs');
+var events = require('events');
 var wormhole;
 if (fs.existsSync('../websocketrpc')) {
 	wormhole = require('../websocketrpc');
@@ -29,13 +30,21 @@ wormholeredis.prototype.onRoomMessage = function(room) {
 //
 // Room constructor. Do room specific tings, yo!
 //
-var wormholeredisRoom = function (name) {
+var wormholeredisRoom = function (name, redisSub) {
+	events.EventEmitter.call(this);
+	var self = this;
 	this.name = room;
+	this.redisSub = redisSub;
+	this.onRoomMessage = this.onRoomMessage.bind(this);
+	redisSub.on("wormholeRoom:"+name, this.onRoomMessage);
 };
-wormholeredisRoom.prototype.onRoomMessage = function () {
+wormholeredisRoom.prototype.onRoomMessage = function (message) {
 	// Parse room message.
+	this.emit("message", message);
 };
 wormholeredisRoom.prototype.leaveRoom = function () {
 	// Handle leaving room. Unsubscribe? Announce?
+	this.redisSub.removeListener("wormholeRoom:"+name, this.onRoomMessage);
 };
+wormholeredisRoom.prototype.__proto__ = events.EventEmitter.prototype;
 module.exports = wormholeredis;

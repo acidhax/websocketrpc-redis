@@ -11,12 +11,15 @@ var wormholeredis = function (socket, redisSub) {
 	wormhole.call(this);
 	this.redisSub = redisSub;
 	this.rooms = [];
+
+	this.onRoomMessage = this.onRoomMessage.bind(this);
 };
 wormholeredis.prototype.__proto__ = wormhole.prototype;
 wormholeredis.prototype.joinRoom = function(room, cb) {
 	// Subscribe to room in redis.
 	var self = this;
 	var subRoom = new wormholeredisRoom(room);
+	subRoom.on("message", this.onRoomMessage);
 	this.rooms.push(subRoom);
 	cb && cb(null, subRoom);
 	this.socket.on("disconnect", function () {

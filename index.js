@@ -15,9 +15,13 @@ var wormholeredis = function (socket, redisSub) {
 wormholeredis.prototype.__proto__ = wormhole.prototype;
 wormholeredis.prototype.joinRoom = function(room, cb) {
 	// Subscribe to room in redis.
+	var self = this;
 	var subRoom = new wormholeredisRoom(room);
 	this.rooms.push(subRoom);
 	cb && cb(null, subRoom);
+	this.socket.on("disconnect", function () {
+		self.leaveRoom(subRoom);
+	});
 };
 wormholeredis.prototype.leaveRoom = function (room) {
 	// Unsubscribe from room in redis.

@@ -6,7 +6,7 @@ if (fs.existsSync('../websocketrpc')) {
 	wormhole = require('websocketrpc');
 }
 
-var wormholeredis = function (redisSub) {
+var wormholeredis = function (socket, redisSub) {
 	wormhole.call(this);
 	this.redisSub = redisSub;
 	this.rooms = [];
@@ -30,5 +30,8 @@ var wormholeredisRoom = function (name) {
 };
 wormholeredisRoom.prototype.onRoomMessage = function () {
 	// Parse room message.
+};
+wormholeredisRoom.prototype.leaveRoom = function () {
+	// Handle leaving room. Unsubscribe? Announce?
 };
 module.exports = wormholeredis;

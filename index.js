@@ -15,9 +15,9 @@ var wormholeredis = function (socket, redisSub) {
 	this.onRoomMessage = this.onRoomMessage.bind(this);
 	this.setupEvents();
 };
+
+// Inherit from wormhole. Yeah, yo.
 wormholeredis.prototype.__proto__ = wormhole.prototype;
-wormholeredis.prototype.setupEvents = function() {
-};
 wormholeredis.prototype.joinRoom = function(room, cb) {
 	// Subscribe to room in redis.
 	var self = this;

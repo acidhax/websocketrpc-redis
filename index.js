@@ -6,8 +6,9 @@ if (fs.existsSync('../websocketrpc')) {
 	wormhole = require('websocketrpc');
 }
 
-var wormholeredis = function () {
+var wormholeredis = function (redisSub) {
 	wormhole.call(this);
+	this.redisSub = redisSub;
 };
 wormholeredis.prototype.__proto__ = wormhole.prototype;
 wormholeredis.prototype.joinRoom = function(room) {

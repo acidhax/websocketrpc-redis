@@ -25,6 +25,9 @@ wormholeredis.prototype.onRoomMessage = function(room) {
 	// Parse room message.
 };
 
+//
+// Room constructor. Do room specific tings, yo!
+//
 var wormholeredisRoom = function (name) {
 	this.name = room;
 };

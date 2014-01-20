@@ -30,7 +30,7 @@ wormholeredis.prototype.leaveRoom = function (room) {
 	// Unsubscribe from room in redis.
 	this.rooms.splice(this.rooms.indexOf(room), 1);
 };
-wormholeredis.prototype.onRoomMessage = function(room) {
+wormholeredis.prototype.onRoomMessage = function(room, message) {
 	// Parse room message.
 };
 
@@ -47,7 +47,7 @@ var wormholeredisRoom = function (name, redisSub) {
 };
 wormholeredisRoom.prototype.onRoomMessage = function (message) {
 	// Parse room message.
-	this.emit("message", message);
+	this.emit("message", this.name, message);
 };
 wormholeredisRoom.prototype.leaveRoom = function () {
 	// Handle leaving room. Unsubscribe? Announce?
